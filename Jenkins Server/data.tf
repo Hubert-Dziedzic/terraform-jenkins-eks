@@ -18,6 +18,4 @@ data "aws_ami" "example" {
   }
 }
 
-data "aws_availability_zones" "azs" {
-
-}
+data "aws_availability_zones" "azs" {}

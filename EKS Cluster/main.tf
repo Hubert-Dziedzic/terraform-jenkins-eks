@@ -6,8 +6,8 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   azs             = data.aws_availability_zones.azs.names
-  private_subnets = var.private_subnet
-  public_subnets  = var.public_subnet
+  private_subnets = var.private_subnets
+  public_subnets  = var.public_subnets
 
   enable_dns_hostnames = true
   enable_nat_gateway   = true
@@ -34,7 +34,7 @@ module "eks" {
   version = "~> 21.0"
 
   name               = "my-eks-cluster"
-  kubernetes_version = "1.33"
+  kubernetes_version = "1.27"
 
 
   vpc_id     = module.vpc.vpc_id
@@ -46,7 +46,7 @@ module "eks" {
       max_size     = 3
       desired_size = 2
 
-      instance_type = ["t2.small"]
+      instance_types = ["t3.small"]
     }
   }
 

@@ -74,6 +74,14 @@ module "ec2_instance" {
   user_data = file("jenkins-install.sh")
   availability_zone = data.aws_availability_zones.azs.names[0]
 
+  root_block_device = {
+      volume_size = 20
+      volume_type = "gp3"
+      delete_on_termination = true
+      encrypted = true
+    }
+  
+
   tags = {
     Name        = "jenkins-server"
     Terraform   = "true"

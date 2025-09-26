@@ -12,6 +12,8 @@ sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 sudo dnf upgrade -y
 sudo dnf install -y jenkins
+echo "tmpfs /tmp tmpfs defaults,size=2G 0 0" >> /etc/fstab
+mount -o remount /tmp
 
 # configure jenkins to listen on all interfaces
 if grep -q "JENKINS_LISTEN_ADDRESS" /etc/sysconfig/jenkins; then

@@ -13,19 +13,21 @@ module "vpc" {
   enable_nat_gateway   = true
   single_nat_gateway   = true
 
-  tags = {
-    "Kubernetes.io/cluster/my-eks-cluster" = "shared"
-  }
 
-  private_subnet_tags = {
-    "Kubernetes.io/cluster/my-eks-cluster" = "shared"
-    "Kubernetes.io/role/internal-elb"      = "1"
+  tags = {
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
   }
 
   public_subnet_tags = {
-    "Kubernetes.io/cluster/my-eks-cluster" = "shared"
-    "Kubernetes.io/role/elb"               = "1"
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
+    "kubernetes.io/role/elb"               = 1
   }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/my-eks-cluster" = "shared"
+    "kubernetes.io/role/internal-elb"      = 1
+  }
+
 }
 
 #EKS Cluster
@@ -35,7 +37,6 @@ module "eks" {
 
   name               = "my-eks-cluster"
   kubernetes_version = "1.33"
-
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
